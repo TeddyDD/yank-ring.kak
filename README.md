@@ -6,6 +6,8 @@
 
 > [Kakoune] extension with record of previous yanks.
 
+[![asciicast](https://asciinema.org/a/219306.svg)](https://asciinema.org/a/219306)
+
 ## Dependencies
 
 - [Select]
