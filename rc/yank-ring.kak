@@ -19,7 +19,7 @@ define-command -hidden yank-ring- %{
 
 define-command -hidden yank-ring-enable %{
   hook -group yank-ring window NormalKey '[ydc]' %{
-    set-option -add global yank_ring %sh(printf '%s' "$kak_reg_dquote" | sed "s/'\\\\''/''/g")
+    set-option -add global yank_ring "%val(reg_dquote)"
     yank-ring-self-update
   }
 }
