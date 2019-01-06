@@ -19,7 +19,7 @@ define-command -hidden yank-ring- %{
 
 define-command -hidden yank-ring-enable %{
   hook -group yank-ring window NormalKey '[ydc]' %{
-    set-option -add global yank_ring "%val(reg_dquote)"
+    set-option global yank_ring "%val(reg_dquote)" %opt(yank_ring)
     yank-ring-self-update
   }
 }
