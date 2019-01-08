@@ -10,7 +10,7 @@
 
 ## Dependencies
 
-- [Select]
+- [Select] (Optional, only for `yank-ring-open` command)
 
 ## Installation
 
@@ -23,22 +23,37 @@ pathogen-infect /home/user/repositories/github.com/alexherbo2/yank-ring.kak
 ## Configuration
 
 ``` kak
-map global normal Y ':<space>yank-ring<ret>'
+map global normal <c-p> ':<space>yank-ring-previous<ret>'
+map global normal <c-n> ':<space>yank-ring-next<ret>'
+```
+
+``` kak
+map global normal Y ':<space>yank-ring-open<ret>'
 ```
 
 ## Usage
 
 ```
-yank-ring
+yank-ring-previous
+yank-ring-next
 ```
 
-- Yank some things and open the Yank Ring with the `yank-ring` command
+- Yank some things and use a paste command
+- Cycle through the Yank Ring with the `yank-ring-previous` and `yank-ring-next` commands
+
+```
+yank-ring-open
+```
+
+- Yank some things and open the Yank Ring with the `yank-ring-open` command
 - Select a previous yank and type <kbd>Return</kbd> to validate (See [Select] for commands)
 - Yank Ring closes and copies to the copy register
 
 ## Commands
 
-- `yank-ring`: Open the Yank Ring to copy a previous yank
+- `yank-ring-previous`: Cycle backward through the Yank Ring
+- `yank-ring-next`: Cycle forward through the Yank Ring
+- `yank-ring-open`: Open the Yank Ring to copy a previous yank
 
 ## Options
 
