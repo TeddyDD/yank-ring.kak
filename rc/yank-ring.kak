@@ -9,11 +9,11 @@ declare-option -docstring 'Maximum number of entries in the Yank Ring' int yank_
 # Commands
 
 define-command yank-ring-previous -docstring 'Cycle backward through the Yank Ring' %{
-  yank-ring-next- +1
+  yank-ring-index %sh(echo $((kak_opt_yank_ring_index + 1)))
 }
 
 define-command yank-ring-next -docstring 'Cycle forward through the Yank Ring' %{
-  yank-ring-next- -1
+  yank-ring-index %sh(echo $((kak_opt_yank_ring_index - 1)))
 }
 
 define-command yank-ring-open -docstring 'Open the Yank Ring to copy a previous yank' %{ evaluate-commands %sh{
@@ -42,12 +42,12 @@ define-command -hidden yank-ring-enable %{
 # Implementation
 
 # Cycle through the Yank Ring
-define-command -hidden yank-ring-next- -params 1 %{
-  yank-ring-next-- %arg(1) %opt(yank_ring_history)
+define-command -hidden yank-ring-index -params 1 %{
+  yank-ring-index- %arg(1) %opt(yank_ring_history)
 }
 
-define-command -hidden yank-ring-next-- -params .. %{ evaluate-commands %sh{
-  count=$1
+define-command -hidden yank-ring-index- -params .. %{ evaluate-commands %sh{
+  index=$1
   shift
   # Rest arguments are yank registers
   # Rest = $@
@@ -72,7 +72,7 @@ define-command -hidden yank-ring-next-- -params .. %{ evaluate-commands %sh{
     '<a-p>'|'<a-P>'|'<a-R>') command='<a-R>' ;;
   esac
   # Get corresponding register index from the Yank Ring
-  index=$(modulo $((kak_opt_yank_ring_index + count)) $#)
+  index=$(modulo $index $#)
   # (index) + (one-based-numbering) + (skip-index-parameter)
   argument=$((index + 1 + 1))
   printf '
